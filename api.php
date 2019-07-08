@@ -2,6 +2,7 @@
 
 class FtpApi {
 	private $conn_id;
+	private $ftp_basedir = "/";  # 必须以/开头，默认为/
 	public function __construct($option) {
 		// 建立基础连接
 		$this->conn_id = ftp_connect($option['ftp_server'], $option['ftp_port']);
@@ -13,33 +14,51 @@ class FtpApi {
 //			echo "Attempted to connect to $ftp_server for user $ftp_user_name";
 			exit;
 		}
+		if ($option['ftp_basedir'] != $this->ftp_basedir) {
+			$this->ftp_basedir = $option['ftp_basedir'];
+		}
+		if (!@ftp_chdir($this->conn_id, $this->ftp_basedir)) {
+			ftp_mkdir($this->conn_id, $this->ftp_basedir);
+			ftp_chdir($this->conn_id, $this->ftp_basedir);
+		}
 	}
 
 
+	protected function ftp_mksubdirs($ftpcon, $ftpbasedir, $ftpath){
+		@ftp_chdir($ftpcon, $ftpbasedir); // /var/www/uploads
+		$parts = explode('/',$ftpath); // 2013/06/11/username
+		foreach($parts as $part){
+			if(!@ftp_chdir($ftpcon, $part)){
+				ftp_mkdir($ftpcon, $part);
+				ftp_chdir($ftpcon, $part);
+				//ftp_chmod($ftpcon, 0777, $part);
+			}
+		}
+	}
+
+	# key 不能以/开头，否则要去掉ftp_put中连接的/
 	public function Upload($key, $localFilePath) {
+		// 1. 检测路径是否存在
+		if ( !@ftp_chdir( $this->conn_id, dirname($key) ) ) {
+			$this->ftp_mksubdirs( $this->conn_id, $this->ftp_basedir,  dirname($key) );
+		}
 		// 上传文件
-		$upload = ftp_put($this->conn_id, $key, $localFilePath, FTP_BINARY);
+		$upload = ftp_put($this->conn_id, $this->ftp_basedir . '/' . $key, $localFilePath, FTP_BINARY);
 		return $upload;  // 成功时返回 TRUE， 或者在失败时返回 FALSE。
 	}
 
 	public function Delete($keys) {
-		$this->client->delete($keys, True);  // 删除成功返回 true，否则 false
+		ftp_delete($this->conn_id, $this->ftp_basedir . '/' . $keys);
 	}
 
 	public function hasExist($key) {
-		return $this->client->has( $key );
-	}
-
-
-	public function ftp_mksubdirs($ftpbasedir, $ftpath){
-		@ftp_chdir($this->conn_id, $ftpbasedir); // /var/www/uploads
-		$parts = explode('/',$ftpath); // 2013/06/11/username
-		foreach($parts as $part){
-			if(!@ftp_chdir($this->conn_id, $part)){
-				ftp_mkdir($this->conn_id, $part);
-				ftp_chdir($this->conn_id, $part);
-				//ftp_chmod($this->conn_id, 0777, $part);
-			}
+		// 文件夹会返回-1,
+		// 执行成功返回文件大小，失败返回 -1。有些 FTP 服务器可能不支持此特性。
+		$res = ftp_size($this->conn_id, $this->ftp_basedir . '/' . $key);
+		if ($res != -1) {
+			return True;
+		} else {
+			return False;
 		}
 	}
 

@@ -14,9 +14,9 @@ function wpftp_setting_page() {
 
             $wpftp_options['no_local_file'] = (isset($_POST['no_local_file'])) ? True : False;
             $wpftp_options['ftp_server'] = (isset($_POST['ftp_server'])) ? sanitize_text_field(trim(stripslashes($_POST['ftp_server']))) : '';
-            $wpftp_options['ftp_port'] = (isset($_POST['ftp_port'])) ? sanitize_text_field(trim(stripslashes($_POST['ftp_port']))) : '';
             $wpftp_options['ftp_user_name'] = (isset($_POST['ftp_user_name'])) ? sanitize_text_field(trim(stripslashes($_POST['ftp_user_name']))) : '';
             $wpftp_options['ftp_user_pass'] = (isset($_POST['ftp_user_pass'])) ? sanitize_text_field(trim(stripslashes($_POST['ftp_user_pass']))) : '';
+			$wpftp_options['ftp_basedir'] = (isset($_POST['ftp_basedir'])) ? sanitize_text_field(trim(stripslashes($_POST['ftp_basedir']))) : '/';
 
 			// 不管结果变没变，有提交则直接以提交的数据 更新wpftp_options
 			update_option('wpftp_options', $wpftp_options);
@@ -126,13 +126,10 @@ function wpftp_setting_page() {
                 <td><input type="text" name="ftp_user_pass" value="<?php echo esc_attr($wpftp_options['ftp_user_pass']); ?>" size="50" placeholder="FTP密码"/></td>
             </tr>
             <tr>
-               <td style="text-align:right;">
-                    <b>FTP端口(非必选)：</b>
-                 </td>
-                <td>
-                    <input type="text" name="ftp_port" value="<?php echo esc_attr($wpftp_options['ftp_port']); ?>" size="50" placeholder="FTP端口(非必填)"/>
-                    <p>登入 <a href="https://console.qcloud.com/cam/capi" target="_blank">API密钥管理</a> 可以看到 <code>APPID | SecretId | SecretKey</code>。如果没有设置的需要创建一组。点击 <code>新建密钥</code></p>
+                <td style="text-align:right;">
+                    <b>FTP存储子目录(非必填,默认为/)：</b>
                 </td>
+                <td><input type="text" name="ftp_basedir" value="<?php echo esc_attr($wpftp_options['ftp_basedir']); ?>" size="50" placeholder="FTP存储子目录(非必填,默认为/)"/></td>
             </tr>
             <tr>
                 <td style="text-align:right;">

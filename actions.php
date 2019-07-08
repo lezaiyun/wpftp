@@ -11,11 +11,11 @@ define( 'WPFTP_BASEFOLDER', plugin_basename(dirname(__FILE__)));
 function wpftp_set_options() {
     $options = array(
 	    'version' => WPFTP_VERSION,  # 用于以后当有数据结构升级时初始化数据
-	    'bucket' => "",
 		'ftp_server' => "",
-		'ftp_port' => "",
+		'ftp_port' => 21,
 		'ftp_user_name' => "",
 		'ftp_user_pass' => "",
+		'ftp_basedir' => "/",
 		'no_local_file' => False,  # 不在本地保留备份
 	    'ftp_url_path' => '',
 	);

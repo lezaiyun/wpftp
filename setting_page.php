@@ -16,7 +16,7 @@ function wpftp_setting_page() {
             $wpftp_options['ftp_server'] = (isset($_POST['ftp_server'])) ? sanitize_text_field(trim(stripslashes($_POST['ftp_server']))) : '';
             $wpftp_options['ftp_user_name'] = (isset($_POST['ftp_user_name'])) ? sanitize_text_field(trim(stripslashes($_POST['ftp_user_name']))) : '';
             $wpftp_options['ftp_user_pass'] = (isset($_POST['ftp_user_pass'])) ? sanitize_text_field(trim(stripslashes($_POST['ftp_user_pass']))) : '';
-			$wpftp_options['ftp_basedir'] = (isset($_POST['ftp_basedir'])) ? sanitize_text_field(trim(stripslashes($_POST['ftp_basedir']))) : '/';
+            $wpftp_options['ftp_basedir'] = (isset($_POST['ftp_basedir'])) ? sanitize_text_field(trim(stripslashes($_POST['ftp_basedir']))) : '/';
 
 			// 不管结果变没变，有提交则直接以提交的数据 更新wpftp_options
 			update_option('wpftp_options', $wpftp_options);
@@ -68,18 +68,6 @@ function wpftp_setting_page() {
     <form action="<?php echo wp_nonce_url('./admin.php?page=' . WPFTP_BASEFOLDER . '/actions.php'); ?>" name="wpcosform" method="post">
         <table>
             <tr>
-                <td style="text-align:right;">
-                    <b>存储桶名称：</b>
-                </td>
-                <td>
-                    <input type="text" name="bucket" value="<?php echo esc_attr($wpftp_options['bucket']); ?>" size="50"
-                           placeholder="BUCKET 比如：laobuluo-xxxxxx"/>
-
-                    <p>1. 需要在腾讯云创建<code>bucket</code>存储桶。注意：填写"存储桶名称-对应ID"。</p>
-                    <p>2. 示范： <code>laobuluo-xxxxxx</code></p>
-                </td>
-            </tr>
-            <tr>
                  <td style="text-align:right;">
                     <b>FTP服务器地址：</b>
                </td>
@@ -87,25 +75,6 @@ function wpftp_setting_page() {
                     <input type="text" name="ftp_server" value="<?php echo esc_attr($wpftp_options['ftp_server']); ?>" size="50"
                            placeholder="FTP服务器地址"/>
                     <p>直接填写我们存储桶所属地区，示例：ap-shanghai</p>
-                </td>
-            </tr>
-<tr>
-               <td style="text-align:right;">
-                    <b>远程URL：</b>
-              </td>
-                <td>
-                    <input type="text" name="upload_url_path" value="<?php echo esc_url(get_option('upload_url_path')); ?>" size="50"
-                           placeholder="请输入远程URL"/>
-
-                    <p><b>设置注意事项：</b></p>
-
-                    <p>1. 一般我们是以：<code>http://{cos域名}/{本地文件夹}</code>，同样不要用"/"结尾。</p>
-
-                    <p>2. <code>{cos域名}</code> 是需要在设置的存储桶中查看的。"存储桶列表"，当前存储桶的"基础配置"的"访问域名"中。</p>
-
-                    <p>3. 如果我们自定义域名的，<code>{cos域名}</code> 则需要用到我们自己自定义的域名。</p>
-                    <p>4. 示范1： <code>https://laobuluo-xxxxxxx.cos.ap-shanghai.myqcloud.com/wp-content/uploads</code></p>
-                    <p>5. 示范2： <code>https://cos.laobuluo.com/wp-content/uploads</code></p>
                 </td>
             </tr>
             <tr>
@@ -124,6 +93,25 @@ function wpftp_setting_page() {
                     <b>FTP密码：</b>
                  </td>
                 <td><input type="text" name="ftp_user_pass" value="<?php echo esc_attr($wpftp_options['ftp_user_pass']); ?>" size="50" placeholder="FTP密码"/></td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">
+                    <b>远程URL：</b>
+                </td>
+                <td>
+                    <input type="text" name="upload_url_path" value="<?php echo esc_url(get_option('upload_url_path')); ?>" size="50"
+                           placeholder="请输入远程URL"/>
+
+                    <p><b>设置注意事项：</b></p>
+
+                    <p>1. 一般我们是以：<code>http://{cos域名}/{本地文件夹}</code>，同样不要用"/"结尾。</p>
+
+                    <p>2. <code>{cos域名}</code> 是需要在设置的存储桶中查看的。"存储桶列表"，当前存储桶的"基础配置"的"访问域名"中。</p>
+
+                    <p>3. 如果我们自定义域名的，<code>{cos域名}</code> 则需要用到我们自己自定义的域名。</p>
+                    <p>4. 示范1： <code>https://laobuluo-xxxxxxx.cos.ap-shanghai.myqcloud.com/wp-content/uploads</code></p>
+                    <p>5. 示范2： <code>https://cos.laobuluo.com/wp-content/uploads</code></p>
+                </td>
             </tr>
             <tr>
                 <td style="text-align:right;">

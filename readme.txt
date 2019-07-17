@@ -1,39 +1,54 @@
-WordPress COS（简称:WPCOS），基于腾讯云COS存储与WordPress实现静态资源到COS存储中。提高网站项目的访问速度，以及静态资源的安全存储功能。
+=== WPFTP ===
 
-WPCOS插件特点
+Contributors: laobuluo
+Donate link: https://www.laobuluo.com/donate/
+Tags:WordPress对象存储,WordPress加速,WordPress FTP空间, FTP空间存储,自建云存储
+Requires at least: 4.5.0
+Tested up to: 5.2.2
+Stable tag: 0.9
+Requires PHP: 5.6
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-1、自动同步将WordPress静态文件，比如图片等上传到腾讯云COS存储中，在WP网站中删除图片会自动也删除COS存储文件；
+== Description ==
 
-2、可以设置本地与COS同步备份，或者本地不保存，仅存储到COS中（这一点在多个网友版本中均有错误，我们加以完善）；
+<strong>WordPress FTP（简称:WPFTP），基于自建FTP空间存储与WordPress实现静态资源到FTP存储中。提高网站项目的访问速度，以及静态资源的安全存储功能。</strong>
 
-3、对于腾讯云COS存储地区问题，不会因为增加机房而需要更新插件，我们直接输入所属地区即可。
+<strong>主要功能：</strong>
 
-WPCOS插件安装
+* 1、下载和激活【WPFTP】插件后，配置FTP空间账户信息。
+* 2、可以选择只存储到FTP空间、也可以本地网站也同时备份。
+* 3、对于FTP空间，我们可以服务器配置WEB空间，也可以使用虚拟主机空间。
+* 4、WPFTP插件更多详细介绍和安装：<a href="https://www.laobuluo.com/2599.html" target="_blank" >https://www.laobuluo.com/2591.html</a>
 
-1、插件下载地址
+<strong>支持网站平台：</strong>
 
-A - GitHub：https://github.com/laobuluo/wpcos
+* 1. 老蒋部落 <a href="https://www.itbulu.com" target="_blank" >https://www.itbulu.com</a>
+* 2. 老部落 <a href="https://www.laobuluo.com" target="_blank" >https://www.laobuluo.com</a>
 
-B - 备用镜像地址：https://download.laobuluo.com/wordpress/wpcos.zip
+== Installation ==
 
-2、安装插件
+* 1、把WPFTP文件夹上传到/wp-content/plugins/目录下<br />
+* 2、在后台插件列表中激活WPFTP<br />
+* 3、在左侧【WPFTP设置】菜单中输入FTP存储空间账户信息。<br />
+* 4、设置可以参考：https://www.laobuluo.com/2599.html
 
-将插件WPCOS文件夹解压后上传到"wp-content\plugins"目录，然后再网站后台启动插件。
+== Frequently Asked Questions ==
 
-3、插件设置
+* 1.当发现插件出错时，开启调试获取错误信息。
+* 2.我们可以选择备份对象存储或者本地同时备份。
+* 3.如果已有网站使用wpqiniu，插件调试没有问题之后，需要将原有本地静态资源上传到七牛云对象存储中，然后修改数据库原有固定静态文件链接路径。、
+* 4.如果不熟悉使用这类插件的用户，一定要先备份，确保错误设置导致网站故障。
 
-插件启动之后我们可以在WordPress后台左侧菜单看到"WPCOS设置"，点击设置。
+== Screenshots ==
 
-请输入图片描述
+1. screenshot-1.png
 
-这里我们根据从腾讯云COS获取的API信息和存储桶信息填写。
+== Changelog ==
 
-请输入图片描述
+= 1.0 =
+* 1. 在完成WPCOS、WPOSS等传统云存储插件之后，有网友呼吁开发利用FTP空间的自建存储-WPFTP。
 
-具体教程可以参考：https://www.laobuluo.com/2196.html
 
-WPCOS插件更新地址：https://www.laobuluo.com/2186.html
-
-WPCOS更新进度
-
-2019.3.11 - WPCOS调试和发布文档的整理。因为考虑到后续还会完善功能，暂定0.1版本。
+== Upgrade Notice ==
+* 

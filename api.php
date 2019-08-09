@@ -21,6 +21,7 @@ class FtpApi {
 			ftp_mkdir($this->conn_id, $this->ftp_basedir);
 			ftp_chdir($this->conn_id, $this->ftp_basedir);
 		}
+		ftp_pasv($this->conn_id, False);  # 关闭被动模式，如果要打开被动模式，只需注释这一行
 	}
 
 

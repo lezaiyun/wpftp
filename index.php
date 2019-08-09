@@ -18,7 +18,7 @@ register_deactivation_hook(__FILE__, 'wpftp_restore_options');  # 禁用时触�
 # 避免上传插件/主题被同步到对象存储
 if (substr_count($_SERVER['REQUEST_URI'], '/update.php') <= 0) {
 	add_filter('wp_handle_upload', 'wpftp_upload_attachments');
-	add_filter('wp_generate_attachment_metadata', 'wpftp_upload_and_thumbs');
+	# add_filter('wp_generate_attachment_metadata', 'wpftp_upload_and_thumbs');  # 貌似会和wp_update_attachment_metadata钩子重复提交。先注释！
 }
 
 # 附件更新后触发

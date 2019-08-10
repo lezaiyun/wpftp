@@ -5,7 +5,7 @@ Donate link: https://www.laobuluo.com/donate/
 Tags:WordPress对象存储,WordPress加速,WordPress FTP空间, FTP空间存储,自建云存储
 Requires at least: 4.5.0
 Tested up to: 5.2.2
-Stable tag: 0.9
+Stable tag: 1.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -49,6 +49,9 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 = 1.0 =
 * 1. 在完成WPCOS、WPOSS等传统云存储插件之后，有网友呼吁开发利用FTP空间的自建存储-WPFTP。
 
+= 1.1 =
+* 1. 解决钩子重复提交的问题
+* 2. 被动上传改成主动上传模式
 
 == Upgrade Notice ==
 * 
